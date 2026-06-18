@@ -1,10 +1,11 @@
-import baggage.{Baggage, BaggageKey}
-import context.{Context, SpanContext}
+import baggage.Baggage
+import baggage.BaggageKey
+import context.Context
+import context.SpanContext
 import io.opentelemetry.sdk.trace.IdGenerator
 import munit.CatsEffectSuite
 
-
-class ContextSpec extends CatsEffectSuite{
+class ContextSpec extends CatsEffectSuite {
   val UserId: BaggageKey[String] = BaggageKey[String]("user.id")
 
   val generator: IdGenerator = IdGenerator.random()
@@ -15,7 +16,7 @@ class ContextSpec extends CatsEffectSuite{
 
     assertEquals(
       context.baggage,
-      Baggage()
+      Baggage(),
     )
   }
 
@@ -24,7 +25,7 @@ class ContextSpec extends CatsEffectSuite{
 
     assertEquals(
       context.span,
-      None
+      None,
     )
   }
 
@@ -46,13 +47,12 @@ class ContextSpec extends CatsEffectSuite{
       Baggage()
         .set(UserId, "abc")
 
-    
     val span =
       SpanContext(
         newTraceIdHex,
         newTraceIdHex,
         None,
-        sampled = true
+        sampled = true,
       )
 
     val context =
@@ -62,12 +62,12 @@ class ContextSpec extends CatsEffectSuite{
 
     assertEquals(
       context.baggage.get(UserId),
-      Some("abc")
+      Some("abc"),
     )
 
     assertEquals(
       context.span,
-      Some(span)
+      Some(span),
     )
   }
 }

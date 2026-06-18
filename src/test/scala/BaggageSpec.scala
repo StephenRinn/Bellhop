@@ -1,9 +1,9 @@
-import baggage.{Baggage, BaggageKey}
-import munit.CatsEffectSuite
+import baggage.Baggage
+import baggage.BaggageKey
 import munit.CatsEffectSuite
 
-class BaggageSpec extends CatsEffectSuite{
-  test("baggage.Baggage Stores and retrieves typed values"){
+class BaggageSpec extends CatsEffectSuite {
+  test("baggage.Baggage Stores and retrieves typed values") {
     val userId = BaggageKey[String]("user_id")
     val requestId = BaggageKey[Long]("request_id")
 
@@ -23,7 +23,7 @@ class BaggageSpec extends CatsEffectSuite{
   }
 
   test("baggage.Baggage type-safety prevents incorrect type retrieval") {
-    val userId = BaggageKey[String] ("user_id")
+    val userId = BaggageKey[String]("user_id")
     val baggage = Baggage().set[String](userId, "user-123")
 
     // This should return None because we're asking for Long, not String
@@ -33,7 +33,7 @@ class BaggageSpec extends CatsEffectSuite{
   }
 
   test("baggage.Baggage is immutable") {
-    val userId = BaggageKey[String] ("user_id")
+    val userId = BaggageKey[String]("user_id")
     val baggage1 = Baggage().set(userId, "user-123")
     val baggage2 = baggage1.set(userId, "user-456")
 

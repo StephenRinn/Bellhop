@@ -2,11 +2,11 @@ package context
 
 import baggage.Baggage
 
-final case class Context (
+final case class Context(
     span: Option[SpanContext] = None,
     baggage: Baggage = Baggage(),
-    locals: Locals = Locals()
-                         ) {
+    locals: Locals = Locals(),
+) {
   def withSpan(span: SpanContext): Context =
     copy(span = Some(span))
 
