@@ -1,3 +1,5 @@
 package context
 
-case class Locals ()
+case class Locals (
+    values: Map[LocalKey[_], Any] = Map.empty
+                  )
